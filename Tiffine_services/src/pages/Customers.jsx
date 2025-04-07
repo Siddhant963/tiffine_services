@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { toast } from 'sonner';
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
-import CustomerCard from '@/components/ui/CustomerCard';
+import Header from '../components/layout/Header';
+import Footer from '../components/layout/Footer';
+import CustomerCard from '../components/ui/CustomerCard';
 import { UserPlus } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 

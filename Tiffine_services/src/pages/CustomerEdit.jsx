@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { toast } from 'sonner';
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
-import { Input } from '@/components/ui/input';
+import Header from '../components/layout/Header';
+import Footer from '../components/layout/Footer';
+import { Input } from '../components/ui/input';
 import { ArrowLeft, Star } from 'lucide-react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 

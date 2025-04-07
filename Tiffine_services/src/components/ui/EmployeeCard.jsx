@@ -1,4 +1,4 @@
-import { cn } from '@/lib/utils';
+import { cn } from '../../lib/utils';
 
 const EmployeeCard = ({ name, role, salary, paymentDate = "5th", className }) => {
   return (

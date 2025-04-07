@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { toast } from 'sonner';
-import OrderCard from '@/components/ui/OrderCard';
+import OrderCard from '../components/ui/OrderCard';
 import { ArrowLeft } from 'lucide-react';
 import { Link } from 'react-router-dom';
 

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
-import OrderCard from '@/components/ui/OrderCard';
+import Header from '../components/layout/Header';
+import Footer from '../components/layout/Footer';
+import OrderCard from '../components/ui/OrderCard';
 
 const Orders = () => {
   const [orders, setOrders] = useState([

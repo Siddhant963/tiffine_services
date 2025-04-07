@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { toast } from 'sonner';
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
-import StatCard from '@/components/ui/StatCard';
+import Header from '../components/layout/Header';
+import Footer from '../components/layout/Footer';
+import StatCard from '../components/ui/StatCard';
 import { ChevronRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 

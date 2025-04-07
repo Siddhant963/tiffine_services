@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { toast } from 'sonner';
-import Header from '@/components/layout/Header';
-import Footer from '@/components/layout/Footer';
-import WeeklyCalendar from '@/components/ui/Calendar';
-import EmployeeCard from '@/components/ui/EmployeeCard';
+import Header from '../components/layout/Header';
+import Footer from '../components/layout/Footer';
+import WeeklyCalendar from '../components/ui/Calendar';
+import EmployeeCard from '../components/ui/EmployeeCard';
 import { UserPlus } from 'lucide-react';
 
 const Staff = () => {

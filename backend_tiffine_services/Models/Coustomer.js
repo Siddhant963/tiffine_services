@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-mongoose.CoustomerSchema = mongoose.Schema({
+mongoose.CoustomerSchema = new mongoose.Schema({
     name: {
         type: String,
         required: true
@@ -41,4 +41,4 @@ mongoose.CoustomerSchema = mongoose.Schema({
     }
 });
 
-mongoose.model('Customer', mongoose.CoustomerSchema);
+module.exports = mongoose.model('Customer', mongoose.CoustomerSchema);

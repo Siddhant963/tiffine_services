@@ -1,4 +1,4 @@
-import { cn } from '@/lib/utils';
+import { cn } from '../../lib/utils';
 import { toast } from 'sonner';
 import { useState } from 'react';
 import { 
@@ -7,7 +7,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
+} from './select';
 
 const OrderCard = ({ orderId, customer, meal, status: initialStatus, className, onStatusChange }) => {
   const [status, setStatus] = useState(initialStatus);
