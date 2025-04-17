@@ -2,6 +2,7 @@ const Usermodel = require('../Models/Usermodel');
 const Subscriptionmodel = require('../Models/Subscription');
 const Coustomermodel = require('../Models/Coustomer')
 const Deliverymodel = require('../Models/delivery');
+const AttendanceModel = require('../Models/Attendance');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const cookieParsar = require('cookie-parser');
@@ -114,8 +115,9 @@ module.exports.login = async(req,res) => {
                return res.status(400).json({message: "Invalid credentials"});
           }else{ 
                const token = jwt.sign({id: user._id}, process.env.JWT_SECRET, {expiresIn: '1h'});
+               const role = user.roles;
                res.cookie('token', token, {httpOnly: true});
-               return res.status(200).json({message: "Login successful", token});
+               return res.status(200).json({message: "Login successful", token , role });
           }
      }
 }
@@ -151,10 +153,13 @@ module.exports.getallsubscriptions = async(req,res) => {
 } 
 
 module.exports.getallcoustomersbyfillter = async(req,res) => {
-     const {name , email , contact , address , subscription , subscription_start_date , subscription_end_date } = req.body;
+     const { _id , name , email , contact , address , subscription , subscription_start_date , subscription_end_date } = req.body;
      const filter = {};
      if(name){
           filter.name = name;
+     }
+     if(_id){
+          filter._id = _id;
      }
      if(email){
           filter.email = email;
@@ -294,18 +299,20 @@ module.exports.updateDelivery = async (req, res) => {
  };
 
 module.exports.updateCoustomer = async (req, res) => {
-     const { coustomer_id, name, email, contact, address, subscription, subscription_start_date, subscription_end_date } = req.body;
- 
-     if (!coustomer_id) {
+     const {_id, name, email, contact, address, subscription, subscription_start_date, subscription_end_date } = req.body;
+
+     if (!_id) {
          return res.status(400).json({ message: "Coustomer ID is required" });
      }
+     
  
      try {
-         const coustomer = await Coustomermodel.findById(coustomer_id);
+         const coustomer = await Coustomermodel.findById(_id);
          if (!coustomer) {
              return res.status(404).json({ message: "Coustomer not found" });
          }
- 
+       
+        
          if (name) coustomer.name = name;
          if (email) coustomer.email = email;
          if (contact) coustomer.contact = contact;
@@ -353,5 +360,45 @@ module.exports.updateCoustomer = async (req, res) => {
           } catch (error) {
           console.error("Error recharging subscription:", error);
           return res.status(500).json({ message: "Server error" });
+          }
+     }
+
+     module.exports.getallusersbyfillter = async(req,res) => {
+          const { _id , name , email , password , contact , total_salary , roles } = req.query;
+          if(!_id && !name && !email && !password && !contact && !total_salary && !roles){
+               return res.status(400).json({message: "At least one filter is required"});
+          }
+          const filter = {};
+
+          if(name){
+               filter.name = name;
+          }
+          if(_id){
+               filter._id = _id;
+          }
+          if(email){
+               filter.email = email;
+          }
+          if(password){
+               filter.password = password;
+          }
+          if(contact){
+               filter.contact = contact;
+          }
+          if(total_salary){
+               filter.total_salary = total_salary;
+          }
+          if(roles){
+               filter.roles = roles;
+          }
+          
+          try {
+               const users = await Usermodel.find(filter);
+               if(users.length === 0){
+                    return res.status(404).json({message: "No users found"});
+               }
+               return res.status(200).json({message: "Users fetched successfully", data: users});
+          } catch (error) {
+               return res.status(500).json({message: "Internal server error"});
           }
      }

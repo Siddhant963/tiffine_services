@@ -1,26 +1,32 @@
 const express = require('express');
 const dotenv = require('dotenv');
-const db = require('./Config/DbConnection')
+const db = require('./Config/DbConnection');
+const cors = require('cors');
+
 dotenv.config();
 const app = express();
-const adminroutes = require('./Routes/Admin');
-const bodyParser = require('body-parser');
 
+// Middleware setup
+app.use(cors({
+  origin: 'http://localhost:8080',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
+// Body parser middleware (express.json() is enough in newer Express versions)
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use('/api/admin', adminroutes);
 
 // Routes
+const adminroutes = require('./Routes/Admin');
+app.use('/api/admin', adminroutes);
 
-
-
-app.get('/' , (req,res)=>{
-     res.send('Hello World');
+// Test route
+app.get('/', (req, res) => {
+  res.send('Hello World');
 });
 
-app.listen(process.env.PORT, ()=>{
-     console.log(`Server is running on port ${process.env.PORT}`);
+// Start server
+app.listen(process.env.PORT, () => {
+  console.log(`Server is running on port ${process.env.PORT}`);
 });
